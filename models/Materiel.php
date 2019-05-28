@@ -95,7 +95,7 @@ class Materiel
 		if($this->is_obj == 1)
 			$RGB = "'table-success'";
 		else
-			$RGB = "'table-danger'";
+			$RGB = "'table-primary'";
 		return $RGB;
 	}
 	

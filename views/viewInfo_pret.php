@@ -26,6 +26,18 @@
             table th{
             	font-size: 14px;
             }
+            .footer {
+                  margin-top: 5cm;
+                  background-color: #f5f5f5;
+                  text-align: center;
+            }
+            #bg { 
+  
+              background-image: url("images/image_de_fond.jpg");
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
         </style>
         <script type="text/javascript">
 			$(document).ready( function () {
@@ -40,8 +52,35 @@
             });            
         </script>
     </head>
-    <body>
-        <div style='margin-top: 5cm; margin-left: 5.3cm;' class='text-left'>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">L'outil Inventaire</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">A propos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <body class="panel-group" id="bg">
+        <h1 class="display-4" style="margin-top: 3cm; margin-bottom: 1cm; text-align: center;">Informations du prêt</h1>
+        <div style='margin-left: 5.3cm;' class='text-left'>
             <p class='font-weight-bold'>Ce pret a été éffectué par <a href=<?= $link ?>><?= $nom ?></a> , veuillez cliquer sur le nom pour afficher les details de cet emprunteur  </p>
         </div>
         <div class='table_pret'>
@@ -72,4 +111,15 @@
             </table>
         </div>
 	</body>
+<footer class="footer">
+  <div class="container">
+   <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-brand">Université de Cergy Pontoise </span>
+        </div>
+
+        <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
+    </div>
+  </div>
+</footer>
 </html>

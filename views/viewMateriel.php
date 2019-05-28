@@ -16,7 +16,7 @@
         		width: 30cm;
         		margin: auto;
         		height: 10cm;
-        		margin-top: 8cm;
+        		margin-top: 3cm;
         	}
 
             table tr[data-href] {
@@ -24,6 +24,12 @@
             }
             table th{
             	font-size: 14px;
+            }
+            #bg { 
+              background-image: url("images/image_de_fond.jpg");
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
             }
         </style>
         <script type="text/javascript">
@@ -39,8 +45,35 @@
             });            
         </script>
     </head>
-    <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">L'outil Inventaire</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">A propos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>    
+    <body id="bg">
     <div class="table_pret">
+        <h1 class="display-4" style="margin-bottom: 1cm; text-align: center;">Liste matériel</h1>
         <table id='tab_mat' class='table table-hover' class='display'>
                 <thead>
                     <tr>

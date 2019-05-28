@@ -28,7 +28,7 @@
         		width: 20cm;
         		margin: auto;
         		height: 10cm;
-        		margin-top: 2cm;
+        		margin-top: 3cm;
         	}
 
             table tr[data-href] {
@@ -69,7 +69,7 @@
 	    <div class="collapse navbar-collapse" id="navbarResponsive">
 	      <ul class="navbar-nav ml-auto">
 	        <li class="nav-item active">
-	          <a class="nav-link" href="#">Home
+	          <a class="nav-link" href="index.php">Home
 	                <span class="sr-only">(current)</span>
 	              </a>
 	        </li>
@@ -77,7 +77,7 @@
 	          <a class="nav-link" href="#">A propos</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">Admin</a>
+	          <a class="nav-link" href="index.php?url=ajout">Admin</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="#">Contact</a>
@@ -88,7 +88,7 @@
 	</nav>
     <body class="panel-group" id="bg">
 		<div class='table_pret'>
-		<h1 class="display-4" style="margin-bottom: 1cm; text-align: center;">Les prêts </h1>
+		<h1 class="display-4" style="margin-bottom: 1cm; text-align: center;">Les prêts</h1>
         <form action="#" method="post">
               <button type="submit" class="btn btn-primary" style="margin-bottom: 1cm;" name="generate">Génerer en PDF</button>
         </form>

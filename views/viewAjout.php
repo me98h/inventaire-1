@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr_FR">
 <head>
+  <style type="text/css">
+      .footer {
+          margin-top: 5cm;
+          background-color: #f5f5f5;
+          text-align: center;
+      }
+      #bg { 
+  
+        background-image: url("images/image_de_fond.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+  </style>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,10 +25,35 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <link href="../libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
-
-<body>
-
-  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">L'outil Inventaire</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">A propos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav> 
+<body class="panel-group" id="bg">
+  <div class="container" style="margin-top: 3cm;">
+    <h1 class="display-4" style="margin-bottom: 2cm; text-align: center;">Ajout d'un matériel</h1>
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">ajouter objet</div>
       <div class="card-body">
@@ -30,10 +69,7 @@
                         <select class="form-control" name="categorie">
                         <option value="Ordi">ordinateur</option>
                         <option value="else">autres</option>
-                </select>
-
-                    
-                    
+                </select>    
               </div>
                   <div class="col-5">
                     <label for="num_serie">numero de serie</label>
@@ -57,6 +93,17 @@
   <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="libs/jquery-easing/jquery.easing.min.js"></script>
 </body>
+<footer class="footer">
+  <div class="container">
+   <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-brand">Université de Cergy Pontoise </span>
+        </div>
+
+        <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
+    </div>
+  </div>
+</footer>
 
 </html>
     
