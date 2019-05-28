@@ -28,12 +28,24 @@
         		width: 20cm;
         		margin: auto;
         		height: 10cm;
-        		margin-top: 7cm;
+        		margin-top: 2cm;
         	}
 
             table tr[data-href] {
                 cursor: pointer;
             }
+            .footer {
+				  margin-top: 5cm;
+				  background-color: #f5f5f5;
+				  text-align: center;
+			}
+			#bg { 
+  
+			  background-image: url("images/image_de_fond.jpg");
+			  background-position: center;
+			  background-repeat: no-repeat;
+			  background-size: cover;
+			}
         </style>
         <script type="text/javascript">
 			$(document).ready( function () {
@@ -48,8 +60,35 @@
             });            
         </script>
     </head>
-    <body class="panel-group">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+	  <div class="container">
+	    <a class="navbar-brand" href="#">L'outil Inventaire</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+	          <span class="navbar-toggler-icon"></span>
+	        </button>
+	    <div class="collapse navbar-collapse" id="navbarResponsive">
+	      <ul class="navbar-nav ml-auto">
+	        <li class="nav-item active">
+	          <a class="nav-link" href="#">Home
+	                <span class="sr-only">(current)</span>
+	              </a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">A propos</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Admin</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Contact</a>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+    <body class="panel-group" id="bg">
 		<div class='table_pret'>
+		<h1 class="display-4" style="margin-bottom: 1cm; text-align: center;">Les prêts </h1>
         <form action="#" method="post">
               <button type="submit" class="btn btn-primary" style="margin-bottom: 1cm;" name="generate">Génerer en PDF</button>
         </form>
@@ -75,4 +114,16 @@
             </table>
         </div>
 	</body>
+
+<footer class="footer">
+  <div class="container">
+   <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-brand">Université de Cergy Pontoise </span>
+        </div>
+
+        <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
+    </div>
+  </div>
+</footer>
 </html>
