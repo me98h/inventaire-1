@@ -55,7 +55,7 @@ abstract class Model
 		self::$_bdd->query("DROP VIEW IF EXISTS pret_union_name;");
 		self::$_bdd->query("CREATE VIEW pret_union_name AS SELECT no_pret, no_emp_pr, nom, date_debut, date_prevu, date_fin FROM pret INNER JOIN utilisateurs ON pret.no_emp_pr=utilisateurs.no_emp_util UNION SELECT no_pret, no_emp_pr, nom_groupe, date_debut, date_prevu, date_fin FROM pret INNER JOIN groupe ON pret.no_emp_pr=groupe.no_emp_grou;");
 		
-		$result = self::$_bdd->prepare( "SELECT * FROM pret_union_name;");
+		$result = self::$_bdd->prepare( "SELECT * FROM pret_union_name ORDER BY 4 DESC;");
 		$result->execute();
 
 		while ($row = $result->fetch(PDO::FETCH_OBJ)) {

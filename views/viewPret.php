@@ -1,7 +1,19 @@
+<?php
+    require_once('fpdf/MyPDF.php');
+
+    if(isset($_POST['generate'])){
+        $pdf = new MyPDF();
+        $pdf->AliasnbPages();
+        $pdf->AddPage('L', 'A4', 0);
+        $pdf->headerTable();
+        $pdf->viewTable();
+        $pdf->Output();
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -16,7 +28,6 @@
         		width: 20cm;
         		margin: auto;
         		height: 10cm;
-        		overflow: auto;
         		margin-top: 7cm;
         	}
 
@@ -39,6 +50,9 @@
     </head>
     <body class="panel-group">
 		<div class='table_pret'>
+        <form action="#" method="post">
+              <button type="submit" class="btn btn-primary" style="margin-bottom: 1cm;" name="generate">Génerer en PDF</button>
+        </form>
             <table id='tab_pr' class='table table-hover' class='display'>
             <thead>
                 <tr>
