@@ -8,13 +8,15 @@ class Materiel
 	private $num_serie;
 	private $quantite;
 	private $is_obj;
+	private $dispo;
 
-	public function __construct($no_mat, $nom, $categorie, $code_barre, $num_serie, $is_obj){
+	public function __construct($no_mat, $nom, $categorie, $code_barre, $num_serie, $is_obj, $dispo){
 		$this->no_mat = $no_mat;
 		$this->nom = $nom;
 		$this->categorie = $categorie;
 		$this->code_barre = $code_barre;
 		$this->is_obj = $is_obj;
+		$this->dispo = $dispo;
 		if ($is_obj) {
 			$this->quantite = $num_serie;
 			$this->num_serie = "(null)";
@@ -84,6 +86,10 @@ class Materiel
 		return $this->quantite;
 	}
 
+	public function dispo(){
+		return $this->dispo;
+	}
+
 	public function getCouleur(){
 		$RGB = "";
 		if($this->is_obj == 1)
@@ -92,5 +98,6 @@ class Materiel
 			$RGB = "'table-danger'";
 		return $RGB;
 	}
+	
 }
 ?>
