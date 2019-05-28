@@ -40,34 +40,34 @@
         </script>
     </head>
     <body>
-        <div class='table_pret'>
+    <div class="table_pret">
         <table id='tab_mat' class='table table-hover' class='display'>
-                    <thead>
-                        <tr>
-                            <th>Numero du matériel</th>
-                            <th>Nom</th>
-                            <th>Catégorie</th>
-                            <th>Code barre</th>
-                            <th>Numéro de série</th>
-                            <th>Quantité</th>
-                            <th>Disponibilité</th>
+                <thead>
+                    <tr>
+                        <th>Numero du matériel</th>
+                        <th>Nom</th>
+                        <th>Catégorie</th>
+                        <th>Code barre</th>
+                        <th>Numéro de série</th>
+                        <th>Quantité</th>
+                        <th>disponibilite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($materiels as $mat): ?>
+                        <tr class=<?= $mat->getCouleur() ?>>
+                            <td><?= $mat->no_mat() ?></td>
+                            <td><?= $mat->nom() ?></td>
+                            <td><?= $mat->categorie() ?></td>
+                            <td><?= $mat->code_barre() ?></td>
+                            <td><?= $mat->num_serie() ?></td>
+                            <td><?= $mat->quantite() ?></td>
+                            <td><?= $mat->dispo() ?></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($materiels as $mat): ?>
-                            <tr class=<?= $mat->getCouleur() ?>>
-                                <td><?= $mat->no_mat() ?></td>
-                                <td><?= $mat->nom() ?></td>
-                                <td><?= $mat->categorie() ?></td>
-                                <td><?= $mat->code_barre() ?></td>
-                                <td><?= $mat->num_serie() ?></td>
-                                <td><?= $mat->quantite() ?></td>
-                                <td><?= $mat->dispo() ?></td>
-                            </tr>
-                        <?php endforeach; ?>
+                    <?php endforeach; ?>
 
-                    </tbody>
+                </tbody>
             </table>
-        </div>
+    </div>
 	</body>
 </html>

@@ -94,35 +94,26 @@ abstract class Model
 		}
 		return $var;
 	}
-	public function checkCredentials($num_objet, $nom_objet)
+	public function checkCredentials($nom_objet)
     {
 
-        $result = self::$_bdd->prepare("SELECT * FROM materiel WHERE no_mat = ? AND nom_materiel = ?");
-		self::$_bdd->bindValue(1, $num_objet);
-        self::$_bdd->bindValue(2, $nom_objet);
+        $result1 = self::$_bdd->query("SELECT EXISTS (SELECT * FROM materiel WHERE nom_materiel='" . $nom_objet . "' ) AS mat_exist;");
+        $row2= $result1->fetch();
 
-		$result->execute();
-		 if(count($result->fetchAll()>0)) 
-			 return true;
-        return false;
+        return $row2['mat_exist'] == true;
     }
-    public function addCredentials($num_objet, $nom_objet,$categorie,$num_serie,$quantite)
+    public function addCredentials($nom_objet,$categorie,$num_serie,$quantite)
     {
 		self::$_bdd->beginTransaction();
-		$result =self::$_bdd->prepare("insert into materiel(nom_materiel,image,categorie) values(?,null,informatique)");
-		self::$_bdd->bindValue(1, $nom_objet);
-         $result->execute();
-         if($categorie == 'ordinateur')
+		$result =self::$_bdd->prepare("insert into materiel(nom_materiel,image,categorie) values('".$nom_objet."',null,'informatique')");
+		$result->execute();
+         if($categorie == 'Ordi')
         {
-            $result2 =self::$_bdd->prepare("insert into ordinateur(LAST_INSERT_ID(),num_serie) values(?,?)");
-			self::$_bdd->bindValue(1, $num_objet);
-			self::$_bdd->bindValue(2, $num_serie);
+            $result2 =self::$_bdd->prepare("insert into ordinateur(no_mat_ord,num_serie) values(LAST_INSERT_ID(),'".$num_serie."')");
         }
-        elseif($categorie == 'autres')
+        else
         {
-			$result2 =self::$_bdd->prepare("insert into objet(LAST_INSERT_ID(),quantite) values(?,?)");
-            self::$_bdd->bindValue(1, $num_objet);
-            self::$_bdd->bindValue(2, $quantite);
+			$result2 =self::$_bdd->prepare("insert into objet(no_mat_obj,quantite) values(LAST_INSERT_ID(),'".$quantite."')");
         }
          
          $result2->execute();
@@ -163,5 +154,14 @@ abstract class Model
 		}
 		return $var;
 	}
+
+	function ajoutMateriels($nom_objet, $categorie, $num_serie, $quantite){
+        if ($this->checkCredentials($nom_objet)){
+            return false;
+        }else{
+            $this->addCredentials($nom_objet, $categorie, $num_serie, $quantite);
+            return true;
+        }
+    }
 }
 ?>
