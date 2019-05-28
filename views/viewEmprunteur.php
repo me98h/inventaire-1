@@ -1,3 +1,17 @@
+<?php
+  function getLink($no_pret, $no_emp_pr, $nom){
+    $link = "'index.php?url=info_pret&pret".$no_pret."=&no_emp_pr=".$no_emp_pr."&nom_emp=".$nom."'";
+    return $link;
+  }
+
+  function getColor($is_chef){
+    $color = "";
+    if($is_chef == 1){
+      $color = "class='table-primary'";
+    }
+    return $color;
+  }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,11 +27,12 @@
         		border:2px solid black;
         	}
         	.table_pret{
-        		width: 30cm;
-        		margin: auto;
-        		height: 10cm;
-        		overflow: auto;
+        		width: 15cm;
+        		float: right;
         		margin-top: 0.5cm;
+            height: 5cm;
+            overflow: auto;
+            margin-right: 4cm;
         	}
 
             table tr[data-href] {
@@ -26,11 +41,6 @@
             table th{
             	font-size: 14px;
             }
-            .footer {
-                  margin-top: 5cm;
-                  background-color: #f5f5f5;
-                  text-align: center;
-            }
             #bg { 
   
               background-image: url("images/image_de_fond.jpg");
@@ -38,6 +48,24 @@
               background-repeat: no-repeat;
               background-size: cover;
             }
+           .gou_enc{
+                text-align: center;
+                width: 8cm;
+                margin: auto;
+                margin-top: 2cm;
+            }
+           .gou_enc_g{
+                text-align: center;
+                width: 8cm;
+                float: left;
+                margin-top: 0.5cm;
+                margin-bottom: 2cm;
+                margin-left: 4cm;
+            }
+          .table_etu{
+            width: 30cm;
+            margin: auto;
+          }
         </style>
         <script type="text/javascript">
 			$(document).ready( function () {
@@ -79,17 +107,77 @@
       </div>
     </nav>    
     <body class="panel-group" id="bg">
-        
-	</body>
-<footer class="footer">
-  <div class="container">
-   <div class="container">
-        <div class="navbar-header">
-            <span class="navbar-brand">Université de Cergy Pontoise </span>
+        <h1 class="display-4" style="margin-top: 3cm; margin-bottom: 1cm; text-align: center;">Emptunteur <?= $nom ?></h1>
+        <p style="text-align: center;">Ce tableau permet d'afficher tout les prets effectués tout en précisant les dates représentent le pret. Ainsi toutes les informations du groupes qui sont affiché en dessous du tableau des prets.</p>
+        <div class='table_pret'>
+            <table id='tab_mat' class='table table-hover' class='display'>
+                <thead>
+                    <tr>
+                        <th>Numero du pret</th>
+                        <th>Date debut</th>
+                        <th>Date prevue</th>
+                        <th>Date fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($emprunteur->prets() as $pret): ?>
+                        <tr class='table-primary' data-href=<?= getLink($pret->no_pr(), $emprunteur->no_emp(), $nom) ?>>
+                            <td><?= $pret->no_pr() ?></td>
+                            <td><?= $pret->date_debut() ?></td>
+                            <td><?= $pret->date_prevue() ?></td>
+                            <td><?= $pret->date_fin() ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
-
-        <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
-    </div>
-  </div>
-</footer>
+        <?php if($emprunteur->type_emp()->is_etu() || $emprunteur->type_emp()->is_ens()){ ?>
+          <div class='gou_enc'>
+            <ul class='list-group'>
+              <li class='list-group-item active'>Nom: <?= $emprunteur->type_emp()->nom() ?></li>
+              <li class='list-group-item'>Prénom: <?= $emprunteur->type_emp()->prenom() ?></li>
+              <li class='list-group-item'>Mail: <?= $emprunteur->type_emp()->mail() ?></li>
+              <?php if($emprunteur->type_emp()->is_etu()){ ?>
+                <li class='list-group-item'>Niveau: <?= $emprunteur->type_emp()->niveau() ?></li>
+                <li class='list-group-item'>N° étudiant: <?= $emprunteur->type_emp()->num_etu() ?></li>
+              <?php }else{ ?>
+                <li class='list-group-item'>Fonction: <?= $emprunteur->type_emp()->_function() ?></li>
+              <?php } ?>
+            </ul>
+          </div>
+        <?php }else{ ?>
+          <div class='gou_enc_g'>
+            <ul class='list-group'>
+              <li class='list-group-item active'>Nom: <?= $emprunteur->type_emp()->encadrant()->nom() ?></li>
+              <li class='list-group-item'>Prénom: <?= $emprunteur->type_emp()->encadrant()->prenom() ?></li>
+              <li class='list-group-item'>Mail: <?= $emprunteur->type_emp()->encadrant()->mail() ?></li>
+              <li class='list-group-item'>Fonction: <?= $emprunteur->type_emp()->encadrant()->_function() ?></li>
+            </ul>
+          </div>
+        <?php } ?>
+       <div class='table_etu'>
+            <table id='tab_mat' class='table table-hover' class='display'>
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Mail</th>
+                    <th>Niveau</th>
+                    <th>N° d'étudiant</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($emprunteur->type_emp()->goupe_etu() as $etu): ?>
+                        <tr <?= getColor($etu->is_chef()) ?>>
+                            <td><?= $etu->nom() ?></td>
+                            <td><?= $etu->prenom() ?></td>
+                            <td><?= $etu->mail() ?></td>
+                            <td><?= $etu->niveau() ?></td>
+                            <td><?= $etu->num_etu() ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+	  </body>
 </html>

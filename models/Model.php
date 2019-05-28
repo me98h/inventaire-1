@@ -155,13 +155,69 @@ abstract class Model
 		return $var;
 	}
 
-	function ajoutMateriels($nom_objet, $categorie, $num_serie, $quantite){
+	public function ajoutMateriels($nom_objet, $categorie, $num_serie, $quantite){
         if ($this->checkCredentials($nom_objet)){
             return false;
         }else{
             $this->addCredentials($nom_objet, $categorie, $num_serie, $quantite);
             return true;
         }
+    }
+
+    public function getEmp($no_emp){
+
+	    $result = self::$_bdd->query("SELECT EXISTS (SELECT * FROM utilisateurs WHERE no_emp_util='" . $no_emp . "' ) AS utilisateur_exist;");
+	    $row = $result->fetch();
+
+	    $result_pret = self::$_bdd->query("SELECT * FROM pret WHERE pret.no_emp_pr='" . $no_emp . "';");
+	    $arr_prets = array();
+
+	    while ($row_pret = $result_pret->fetch(PDO::FETCH_OBJ)) {
+	    	$arr_prets[] = new PretEmprunteur($row_pret->no_pret, $row_pret->date_debut, $row_pret->date_prevu, $row_pret->date_fin);
+	    }
+
+	    if ($row['utilisateur_exist'] == true) {
+	    	$result = self::$_bdd->query("SELECT EXISTS (SELECT * FROM etudiant WHERE no_util_etu='" . $no_emp . "' ) AS etudiant_exist;");
+	    	$row = $result->fetch();
+	    	if ($row['etudiant_exist'] == true) {
+
+	    		$result_type = self::$_bdd->query("SELECT nom, prenom, mail, etudiant.niveau, etudiant.num_etu FROM utilisateurs INNER JOIN etudiant ON utilisateurs.no_emp_util=etudiant.no_util_etu WHERE etudiant.no_util_etu='" . $no_emp . "';");
+	    		$row_type = $result_type->fetch(PDO::FETCH_OBJ);
+
+	    		$type = new Etudiant($row_type->nom, $row_type->prenom, $row_type->mail, $row_type->num_etu, $row_type->niveau, 0);
+	    	}
+	    	else{
+	    		$result_type = self::$_bdd->query("SELECT nom, prenom, mail, enseignant.fonction FROM utilisateurs INNER JOIN enseignant ON utilisateurs.no_emp_util=enseignant.no_util_ens WHERE enseignant.no_util_ens='" . $no_emp . "';");
+	         	
+	         	$row_type = $result_type->fetch(PDO::FETCH_OBJ);
+	         	$type = new Enseignant($row_type->nom, $row_type->prenom, $row_type->mail, $row_type->fonction);  
+	    	}
+	    } 
+	    else {
+	    	$arr_etu = array();
+	    	$result_etu = self::$_bdd->query("SELECT nom, prenom, mail, etudiant.niveau, etudiant.num_etu, appartenir.est_chef FROM appartenir INNER JOIN utilisateurs ON appartenir.no_util_etu_app=utilisateurs.no_emp_util INNER JOIN etudiant ON utilisateurs.no_emp_util=etudiant.no_util_etu  WHERE appartenir.no_emp_grou_app='" . $no_emp . "';");
+	    	while ($row_etu = $result_etu->fetch(PDO::FETCH_OBJ)) {
+	    		$arr_etu[] = new Etudiant($row_etu->nom, $row_etu->prenom, $row_etu->mail, $row_etu->num_etu, $row_etu->niveau, $row_etu->est_chef);
+	    	}
+	    	
+	    	$result_enc = self::$_bdd->query("SELECT nom, prenom, mail, enseignant.fonction FROM encadrer INNER JOIN utilisateurs ON encadrer.no_util_ens=utilisateurs.no_emp_util INNER JOIN enseignant ON utilisateurs.no_emp_util=enseignant.no_util_ens  WHERE encadrer.no_emp_grou='" . $no_emp . "';");
+	    	$row_enc = $result_enc->fetch(PDO::FETCH_OBJ);
+	    	
+	    	$result_grou = self::$_bdd->query("SELECT * FROM groupe WHERE no_emp_grou='" . $no_emp . "';");
+	    	$row_grou = $result_grou->fetch(PDO::FETCH_OBJ);
+
+	    	$enc = new Enseignant($row_enc->nom, $row_enc->prenom, $row_enc->mail, $row_enc->fonction);
+
+	    	$type = new Groupe($row_grou->nom_groupe ,$row_grou->nb_max_etu);
+	    	$type->SetEncadrant($enc);
+	    	$type->SetGroup_etu($arr_etu);
+	    }
+
+	    $emprunteur = new Emprunteur($no_emp);
+	    $emprunteur->SetType_emp($type);
+	    $emprunteur->setPrets($arr_prets);
+
+	    return $emprunteur;
     }
 }
 ?>
