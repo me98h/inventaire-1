@@ -39,10 +39,10 @@
                   </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">A propos</a>
+              <a class="nav-link" href="index.php?url=materiel">Materiel</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Admin</a>
+              <a class="nav-link" href="index.php?url=ajout">Admin</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>

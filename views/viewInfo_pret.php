@@ -66,10 +66,10 @@
                   </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">A propos</a>
+              <a class="nav-link" href="index.php?url=materiel">Materiel</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Admin</a>
+              <a class="nav-link" href="index.php?url=ajout">Admin</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
@@ -113,13 +113,11 @@
 	</body>
 <footer class="footer">
   <div class="container">
-   <div class="container">
-        <div class="navbar-header">
+        <div class="navbar-footer">
             <span class="navbar-brand">Université de Cergy Pontoise </span>
         </div>
 
         <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
     </div>
-  </div>
 </footer>
 </html>

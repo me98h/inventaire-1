@@ -94,13 +94,13 @@
                   </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">A propos</a>
+              <a class="nav-link" href="index.php?url=materiel">Materiel</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Admin</a>
+              <a class="nav-link" href="index.php?url=ajout">Admin</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="models/contact.php">Contact</a>
             </li>
           </ul>
         </div>
@@ -108,7 +108,8 @@
     </nav>    
     <body class="panel-group" id="bg">
         <h1 class="display-4" style="margin-top: 3cm; margin-bottom: 1cm; text-align: center;">Emptunteur <?= $nom ?></h1>
-        <p style="text-align: center;">Ce tableau permet d'afficher tout les prets effectués tout en précisant les dates représentent le pret. Ainsi toutes les informations du groupes qui sont affiché en dessous du tableau des prets.</p>
+        <h2 style="text-decoration:underline black ;font-family: sans-serif; padding: 0.5cm;">Informations : </h2>
+        <p style="text-align: center; color: black; margin-left: 3cm; margin-right: 5cm;"><strong>Ce tableau permet d'afficher tout les prets effectués par l'emprunteur séléctionnée tout en précisant les dates représentent le pret. Ainsi toutes les informations de l'encadrant quand il s'agit d'un groupe, Informations de l'enseigant ou l'étudiant. Enfin les information des membres du groupe. Tour cela est affiché en dessous du tableau.</strong></p>
         <div class='table_pret'>
             <table id='tab_mat' class='table table-hover' class='display'>
                 <thead>
@@ -121,7 +122,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($emprunteur->prets() as $pret): ?>
-                        <tr class='table-primary' data-href=<?= getLink($pret->no_pr(), $emprunteur->no_emp(), $nom) ?>>
+                        <tr class='table-white' data-href=<?= getLink($pret->no_pr(), $emprunteur->no_emp(), $nom) ?>>
                             <td><?= $pret->no_pr() ?></td>
                             <td><?= $pret->date_debut() ?></td>
                             <td><?= $pret->date_prevue() ?></td>
@@ -154,7 +155,7 @@
               <li class='list-group-item'>Fonction: <?= $emprunteur->type_emp()->encadrant()->_function() ?></li>
             </ul>
           </div>
-        <?php } ?>
+
        <div class='table_etu'>
             <table id='tab_mat' class='table table-hover' class='display'>
                 <thead>
@@ -179,5 +180,6 @@
                 </tbody>
             </table>
         </div>
+        <?php } ?>
 	  </body>
 </html>
