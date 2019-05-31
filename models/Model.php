@@ -4,7 +4,7 @@ abstract class Model
 	private static $_bdd;
 
 	private static function setBdd(){
-		self::$_bdd = new PDO('mysql:host=localhost;dbname=inventaireucp;charset=utf8', 'root', '123456789');
+		self::$_bdd = new PDO('mysql:host=localhost;dbname=inventaireucp;charset=utf8', 'root', '');
 		self::$_bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 	}
 
@@ -102,10 +102,10 @@ abstract class Model
 
         return $row2['mat_exist'] == true;
     }
-    public function addCredentials($nom_objet,$categorie,$num_serie,$quantite)
+    public function addCredentials($nom_objet,$categorie,$num_serie,$quantite, $code_barre)
     {
 		self::$_bdd->beginTransaction();
-		$result =self::$_bdd->prepare("insert into materiel(nom_materiel,image,categorie) values('".$nom_objet."',null,'informatique')");
+		$result =self::$_bdd->prepare("insert into materiel(nom_materiel,image,categorie) values('".$nom_objet."',null,'informatique','".$code_barre."')");
 		$result->execute();
          if($categorie == 'Ordi')
         {
