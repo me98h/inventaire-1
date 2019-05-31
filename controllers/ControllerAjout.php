@@ -21,9 +21,10 @@ class ControllerAjout
             $categorie = $_POST['categorie'];
             $num_serie = $_POST['num_serie'];
             $quantite = $_POST['quantite'];
+            $code_barre = $_POST['code_barre'];
 
             $this->_ajoutManager = new AjoutManager();
-            $ajout = $this->_ajoutManager->ajoutMateriel($nom_objet, $categorie, $num_serie, $quantite);
+            $ajout = $this->_ajoutManager->ajoutMateriel($nom_objet, $categorie, $num_serie, $quantite, $code_barre);
             $done = true;
         }
     }
