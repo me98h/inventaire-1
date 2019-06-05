@@ -119,15 +119,8 @@ abstract class Model
          $result2->execute();
          self::$_bdd->commit();    
 	}
-	public function checkEmprunteur($nom_emprunteur,$prenom_emprunteur)
-    {
-
-        $result1 = self::$_bdd->query("SELECT EXISTS (SELECT * FROM utilisateurs WHERE nom='" . $nom_emprunteur . "' and prenom ='" .$prenom_emprunteur . "' ) AS emp_exist;");
-        $row2= $result1->fetch();
-
-        return $row2['emp_exist'] == true;
-    }
-    public function ajoutEmprunteurs($type,$nom_personne,$prenom_personne, $email_personne, $code_barre,$nom_groupe,$nbr_membre,$nom_emprunteur,$prenom_emprunteur,$nom_emprunteur2,$prenom_emprunteur2,$nom_emprunteur3,$prenom_emprunteur3,$chef)
+	
+    public function ajoutEmprunteurs($etudiant,$type,$nom_personne,$prenom_personne,$nom_encadrant,$prenom_encadrant, $email_personne, $code_barre,$nom_groupe,$nbr_membre,$nom_emprunteur,$prenom_emprunteur,$nom_emprunteur2,$prenom_emprunteur2,$nom_emprunteur3,$prenom_emprunteur3,$chef)
     {
 		if($type=='personne') {
 		self::$_bdd->beginTransaction();
@@ -142,18 +135,27 @@ abstract class Model
 			self::$_bdd->beginTransaction();
 			$result2 =self::$_bdd->prepare("insert into emprunteur(num_code_barre) values('".$code_barre."')");
 		$result2->execute();
+		$result3 =self::$_bdd->prepare("insert into utilisateurs(no_emp_util,nom,prenom) values(LAST_INSERT_ID(),'".$nom_emprunteur."','".$prenom_emprunteur."')");
+		$result3->execute();
+		$no_util = self::$_bdd->lastInsertId();
 		$result =self::$_bdd->prepare("insert into groupe(nom_groupe,nb_max_etu) values('".$nom_groupe."','".$nbr_membre."')");
 		$result->execute();
 		$no_groupe =self::$_bdd->lastInsertId();
-		$result3 =self::$_bdd->prepare("insert into utilisateurs(no_emp_util,nom,prenom) values(LAST_INSERT_ID(),'".$nom_emprunteur."','".$prenom_emprunteur."')");
-		$result3->execute();
 		if($chef == 1){
-			$result4 =self::$_bdd->prepare("insert into appartenir(no_emp_grou_app,no_util_etu_app,est_chef) values('".$no_groupe."',LAST_INSERT_ID(),1)");
+			$result4 =self::$_bdd->prepare("insert into appartenir(no_emp_grou_app,no_util_etu_app,est_chef) values('.$no_groupe.','.$no_util.',1)");
 		$result4->execute();
 		}else {
-			$result4 =self::$_bdd->prepare("insert into appartenir(no_emp_grou_app,no_util_etu_app,est_chef) values('".$no_groupe."',LAST_INSERT_ID(),0)");
+			$result4 =self::$_bdd->prepare("insert into appartenir(no_emp_grou_app,no_util_etu_app,est_chef) values('".$no_groupe."','.$no_util.',0)");
 		$result4->execute();
+		$result5 =self::$_bdd->prepare("select no_emp_util from utilisateurs where nom ='".$nom_encadrant."' and prenom = '".$prenom_encadrant."'");
+		$result5->execute();
+		$row= $result5->fetch();
+		if($row){
+			$result5 =self::$_bdd->prepare("insert into encadrer(no_emp_grou,no_util_ens) values (no_groupe,$row->no_emp_util)");
+		    $result5->execute();
 		}
+		}
+		
 		
 		if($nom_emprunteur2 && $prenom_emprunteur2){
 			$result3 =self::$_bdd->prepare("insert into utilisateurs(no_emp_util,nom,prenom) values(LAST_INSERT_ID(),'".$nom_emprunteur2."','".$prenom_emprunteur2."')");
