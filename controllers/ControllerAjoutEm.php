@@ -29,7 +29,8 @@ class ControllerAjoutEm
             $nom_emprunteur3=$_POST['nom_emprunteur3'];
             $prenom_emprunteur3 = $_POST['prenom_emprunteur3'];
             $type=$_POST['tfrom'];
-            $encadrant = $_POST['encadrant'];
+            $nom_encadrant = $_POST['nom_encadrant'];
+            $prenom_encadrant = $_POST['prenom_encadrant'];
             $code_barre = $_POST['code_barre'];
             if(isset($_POST['est_chef1'])){
                     $chef= 1;
@@ -38,9 +39,16 @@ class ControllerAjoutEm
             }else if(isset($_POST['est_chef3'])){
                 $chef= 3;
             }
+           
+            $est = $_POST['est'];
+            if($est =='etudiant'){
+                $etudiant = 1;
+            }else{
+                $etudiant = 0;
+            }
 
             $this->_ajoutEmManager = new AjoutEmManager();
-            $ajout = $this->_ajoutEmManager->ajoutEmprunteur($type,$nom_personne,$prenom_personne, $email_personne, $code_barre,$nom_groupe,$nbr_membre,$nom_emprunteur,$prenom_emprunteur,$nom_emprunteur2,$prenom_emprunteur2,$nom_emprunteur3,$prenom_emprunteur3,$chef);
+            $ajout = $this->_ajoutEmManager->ajoutEmprunteur($etudiant,$type,$nom_personne,$prenom_personne,$nom_encadrant,$prenom_encadrant, $email_personne, $code_barre,$nom_groupe,$nbr_membre,$nom_emprunteur,$prenom_emprunteur,$nom_emprunteur2,$prenom_emprunteur2,$nom_emprunteur3,$prenom_emprunteur3,$chef);
             $done = true;
         }
     }
