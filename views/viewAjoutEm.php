@@ -113,6 +113,12 @@
                             <option value="groupe">groupe</option>
                         </select>
               </div>
+              <div class="col-5">
+                        <select class="form-control" name="est" id ="est">
+                            <option value="etudiant">etudiant</option>
+                            <option value="prof">enseignant</option>
+                        </select>
+              </div>
               <div class="form-group" id="personne">
                             <div class="col-10"  id="nom_personne">
                                     <label for="nom_personne"> nom personne</label>
@@ -186,8 +192,12 @@
                             </div>
                         
                             <div class="col-10">
-                                <label for="encadrant">encadrant</label>
-                                <input type="text" class="form-control"  placeholder="encadrant" id="encadrant" name="encadrant">
+                                <label for="encadrant">nom encadrant</label>
+                                <input type="text" class="form-control"  placeholder="nom_encadrant" id="encadrant" name="nom_encadrant">
+                            </div>
+                            <div class="col-10">
+                                <label for="encadrant"> prenom encadrant</label>
+                                <input type="text" class="form-control"  placeholder="prenom_encadrant" id="encadrant" name="prenom_encadrant">
                             </div>
               </div>
               
