@@ -81,6 +81,9 @@
 <body class="panel-group" id="bg">
   <div class="container" style="margin-top: 3cm;">
   <h1 class="display-4" style="margin-bottom: 2cm; text-align: center;">Ajout d'un matériel</h1>
+
+  <a href="index.php?url=ajoutEm" class="btn btn-info">Ajout Emprunteur</a>
+
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">ajouter objet</div>
       <div class="card-body">
