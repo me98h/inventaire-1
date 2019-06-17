@@ -4,7 +4,7 @@ abstract class Model
 	private static $_bdd;
 
 	private static function setBdd(){
-		self::$_bdd = new PDO('mysql:host=localhost;dbname=inventaireucp;charset=utf8', 'root', '');
+		self::$_bdd = new PDO('mysql:host=localhost;dbname=inventaireucp;charset=utf8', 'root', '123456789');
 		self::$_bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 	}
 
