@@ -89,9 +89,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?url=materiel">Materiel</a>
                 </li>
+                <?php if (isset($_SESSION['pwd'])) {?> 
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?url=ajout">Admin</a>
                 </li>
+                <?php } ?>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
