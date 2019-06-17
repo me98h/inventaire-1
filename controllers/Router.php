@@ -14,6 +14,33 @@
 
 				$url = array();
 
+			    ob_start();
+			    system('ipconfig /all');
+			    $mycom=ob_get_contents();
+			    ob_clean();
+			      
+			    $findme = 'physique';
+			    $pmac = strpos($mycom, $findme);
+			    $mac=substr($mycom,($pmac+32),20);
+			    $mac = trim($mac);
+
+			    $handle = fopen('controllers/mac.txt', 'r');
+				if ($handle)
+				{
+					$fin = false;
+					while (!feof($handle) && !$fin)
+					{
+						$buffer = fgets($handle);
+						
+						if( strcmp($buffer, $mac) == 0 ){
+							session_start();
+							$_SESSION["pwd"]="OK";
+							$fin = true;
+						}
+					}
+					fclose($handle);
+				}
+				
 				if(isset($_GET['url']))
 				{
 					$url = explode('/', filter_var($_GET['url'], FILTER_SANITIZE_URL));
