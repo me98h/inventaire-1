@@ -17,6 +17,15 @@ class ControllerAjout
         require_once('views/viewAjout.php');
 
         if (isset($_POST['submit'])){
+            $db = mysqli_connect("localhost", "root", "", "inventaireucp");
+            $image = $_FILES['image']['name'];
+            // Get text
+            // image file directory
+            $target = "images/".basename($image);
+
+  	$sql = "INSERT INTO materiel (image) VALUES ('$image')";
+  	// execute query
+  	mysqli_query($db, $sql);
             $nom_objet = $_POST['nom_objet'];
             $categorie = $_POST['categorie'];
             $num_serie = $_POST['num_serie'];
