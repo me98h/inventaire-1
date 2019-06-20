@@ -22,7 +22,7 @@
 			$information_pret = $this->_info_pretManager->getInformation($this->_pret);
 			$nom = $this->_nom;
 			$link = "'./index.php?url=emprunteur&no_emp=".$this->_no_emp_pr."&nom=".$this->_nom."'";
-
+			$pret = $this->_pret;
 			require_once('views/viewInfo_pret.php');
 		}
 	}
