@@ -32,6 +32,7 @@ class Enseignant extends Type{
 	public function mail(){
 		return $this->mail;
 	}
+	public function no_emp(){}
 	
 	public function num_etu(){}
 	public function niveau(){}
@@ -46,5 +47,7 @@ class Enseignant extends Type{
 	public function SetGroup_etu($etu){}
 	public function goupe_etu(){}
 	public function encadrant(){}
+	public function groupes(){}
+	public function SetGroupes($g){}
 }
 ?>

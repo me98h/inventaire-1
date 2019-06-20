@@ -55,10 +55,19 @@ abstract class Model
 		self::$_bdd->query("DROP VIEW IF EXISTS pret_union_name;");
 		self::$_bdd->query("CREATE VIEW pret_union_name AS SELECT no_pret, no_emp_pr, nom, date_debut, date_prevu, date_fin FROM pret INNER JOIN utilisateurs ON pret.no_emp_pr=utilisateurs.no_emp_util UNION SELECT no_pret, no_emp_pr, nom_groupe, date_debut, date_prevu, date_fin FROM pret INNER JOIN groupe ON pret.no_emp_pr=groupe.no_emp_grou;");
 		
-		$result = self::$_bdd->prepare( "SELECT * FROM pret_union_name;");
+		$result = self::$_bdd->prepare( "SELECT * FROM pret_union_name ORDER BY date_debut DESC;");
 		$result->execute();
 
 		while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+
+		    $result_ = self::$_bdd->query("SELECT EXISTS (SELECT * FROM utilisateurs WHERE no_emp_util='" . $row->no_emp_pr . "' ) AS utilisateur_exist;");
+		    $row_ = $result_->fetch();
+
+		    $is_grou_etu = false;
+
+		    if ($row_['utilisateur_exist'] == true) {
+		    	$is_grou_etu = true;
+		    }
 
 			$statut = $this->statut_date($row->date_debut, $row->date_prevu, $row->date_fin);
 			$couleur = "";
@@ -72,8 +81,13 @@ abstract class Model
 				$couleur = "'table-danger'";
 			}
 			$date_debut=date('d/m/Y', strtotime($row->date_debut));
+			$date_prevu=date('d/m/Y', strtotime($row->date_prevu));
+			if($row->date_fin != null)
+				$date_fin=date('d/m/Y', strtotime($row->date_fin));
+			else
+				$date_fin = $row->date_fin;
 
-			$var[] = new Pret($row->no_pret, $row->nom, $date_debut, $statut, $couleur, $row->no_emp_pr);
+			$var[] = new Pret($row->no_pret, $row->nom, $date_debut, $date_prevu, $date_fin, $statut, $couleur, $row->no_emp_pr, $is_grou_etu);
 		}
 		return $var;
 	}
@@ -180,10 +194,7 @@ abstract class Model
 		}
 	}
 }
-		  
-	
-	
-	
+		  	
 	public function getAllMateriels(){
 		$var = [];
 
@@ -237,7 +248,14 @@ abstract class Model
 	    $arr_prets = array();
 
 	    while ($row_pret = $result_pret->fetch(PDO::FETCH_OBJ)) {
-	    	$arr_prets[] = new PretEmprunteur($row_pret->no_pret, $row_pret->date_debut, $row_pret->date_prevu, $row_pret->date_fin);
+	    	$date_debut=date('d/m/Y', strtotime($row_pret->date_debut));
+			$date_prevu=date('d/m/Y', strtotime($row_pret->date_prevu));
+			if($row_pret->date_fin != null)
+				$date_fin=date('d/m/Y', strtotime($row_pret->date_fin));
+			else
+				$date_fin = $row_pret->date_fin;
+
+	    	$arr_prets[] = new PretEmprunteur($row_pret->no_pret, $date_debut, $date_prevu, $date_fin);
 	    }
 
 	    if ($row['utilisateur_exist'] == true) {
@@ -245,10 +263,18 @@ abstract class Model
 	    	$row = $result->fetch();
 	    	if ($row['etudiant_exist'] == true) {
 
-	    		$result_type = self::$_bdd->query("SELECT nom, prenom, mail, etudiant.niveau, etudiant.num_etu FROM utilisateurs INNER JOIN etudiant ON utilisateurs.no_emp_util=etudiant.no_util_etu WHERE etudiant.no_util_etu='" . $no_emp . "';");
+	    		$result_type = self::$_bdd->query("SELECT no_emp_util, nom, prenom, mail, etudiant.niveau, etudiant.num_etu FROM utilisateurs INNER JOIN etudiant ON utilisateurs.no_emp_util=etudiant.no_util_etu WHERE etudiant.no_util_etu='" . $no_emp . "';");
 	    		$row_type = $result_type->fetch(PDO::FETCH_OBJ);
 
-	    		$type = new Etudiant($row_type->nom, $row_type->prenom, $row_type->mail, $row_type->num_etu, $row_type->niveau, 0);
+	    		$result_grou = self::$_bdd->query("SELECT * FROM groupe INNER JOIN appartenir ON groupe.no_emp_grou=appartenir.no_emp_grou_app WHERE appartenir.no_util_etu_app =". $no_emp .";");
+
+	    		$arr_grou = array();
+			    while ($row_grou = $result_grou->fetch(PDO::FETCH_OBJ)) {
+			    	$arr_grou[] = $row_grou->nom_groupe;
+			    }
+
+	    		$type = new Etudiant($row_type->nom, $row_type->prenom, $row_type->mail, $row_type->num_etu, $row_type->niveau, 0, $row_type->no_emp_util);
+	    		$type->SetGroupes($arr_grou);
 	    	}
 	    	else{
 	    		$result_type = self::$_bdd->query("SELECT nom, prenom, mail, enseignant.fonction FROM utilisateurs INNER JOIN enseignant ON utilisateurs.no_emp_util=enseignant.no_util_ens WHERE enseignant.no_util_ens='" . $no_emp . "';");
@@ -259,9 +285,9 @@ abstract class Model
 	    } 
 	    else {
 	    	$arr_etu = array();
-	    	$result_etu = self::$_bdd->query("SELECT nom, prenom, mail, etudiant.niveau, etudiant.num_etu, appartenir.est_chef FROM appartenir INNER JOIN utilisateurs ON appartenir.no_util_etu_app=utilisateurs.no_emp_util INNER JOIN etudiant ON utilisateurs.no_emp_util=etudiant.no_util_etu  WHERE appartenir.no_emp_grou_app='" . $no_emp . "';");
+	    	$result_etu = self::$_bdd->query("SELECT utilisateurs.no_emp_util, nom, prenom, mail, etudiant.niveau, etudiant.num_etu, appartenir.est_chef FROM appartenir INNER JOIN utilisateurs ON appartenir.no_util_etu_app=utilisateurs.no_emp_util INNER JOIN etudiant ON utilisateurs.no_emp_util=etudiant.no_util_etu  WHERE appartenir.no_emp_grou_app='" . $no_emp . "';");
 	    	while ($row_etu = $result_etu->fetch(PDO::FETCH_OBJ)) {
-	    		$arr_etu[] = new Etudiant($row_etu->nom, $row_etu->prenom, $row_etu->mail, $row_etu->num_etu, $row_etu->niveau, $row_etu->est_chef);
+	    		$arr_etu[] = new Etudiant($row_etu->nom, $row_etu->prenom, $row_etu->mail, $row_etu->num_etu, $row_etu->niveau, $row_etu->est_chef, $row_etu->no_emp_util);
 	    	}
 	    	
 	    	$result_enc = self::$_bdd->query("SELECT nom, prenom, mail, enseignant.fonction FROM encadrer INNER JOIN utilisateurs ON encadrer.no_util_ens=utilisateurs.no_emp_util INNER JOIN enseignant ON utilisateurs.no_emp_util=enseignant.no_util_ens  WHERE encadrer.no_emp_grou='" . $no_emp . "';");

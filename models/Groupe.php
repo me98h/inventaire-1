@@ -49,5 +49,8 @@ class Groupe extends Type{
 	public function encadrant(){
 		return $this->encadrant;
 	}
+	public function no_emp(){}
+	public function groupes(){}
+	public function SetGroupes($g){}
 }
 ?>

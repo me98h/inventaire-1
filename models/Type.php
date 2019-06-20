@@ -5,6 +5,7 @@ abstract class Type {
 	abstract protected function is_ens();
 	abstract protected function is_grou();
 
+	abstract protected function no_emp();
 	abstract protected function nom();
 	abstract protected function prenom();
 	abstract protected function mail();
@@ -17,6 +18,7 @@ abstract class Type {
 	abstract protected function SetGroup_etu($etu);
 	abstract protected function goupe_etu();
 	abstract protected function encadrant();
-
+	abstract protected function groupes();
+	abstract protected function SetGroupes($g);
 }
 ?>

@@ -6,14 +6,18 @@ class Etudiant extends Type{
 	private $niveau;
 	private $is_chef;
 	private $nom;
+	private $no_emp;
+	private $groupe = array();
 
-	public function __construct($nom, $prenom,$mail, $num_etu, $niveau, $is_chef){
+
+	public function __construct($nom, $prenom,$mail, $num_etu, $niveau, $is_chef, $no_emp){
 		$this->prenom = $prenom;
 		$this->mail = $mail;
 		$this->num_etu = $num_etu;
 		$this->niveau = $niveau;
 		$this->is_chef = $is_chef;
 		$this->nom = $nom;
+		$this->no_emp = $no_emp;
 	}
 
 	public function is_etu(){
@@ -44,11 +48,23 @@ class Etudiant extends Type{
 	public function is_chef(){
 		return $this->is_chef;
 	}
+	public function no_emp(){
+		return $this->no_emp;
+	}
+	
 	public function _function(){}
 	public function nb_max_etu(){}
 	public function SetEncadrant($encadrant){}
 	public function SetGroup_etu($etu){}
 	public function goupe_etu(){}
 	public function encadrant(){}
+	public function SetGroupes($g){
+		if (is_array($g)) {
+			$this->groupe = $g;
+		}
+	}
+	public function groupes(){
+		return $this->groupe;
+	}
 }
 ?>

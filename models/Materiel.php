@@ -92,10 +92,10 @@ class Materiel
 
 	public function getCouleur(){
 		$RGB = "";
-		if($this->is_obj == 1)
-			$RGB = "'table-bordered'";
-		else
+		if($this->dispo == "disponible")
 			$RGB = "'table-secondary'";
+		else
+			$RGB = "'table-danger'";
 		return $RGB;
 	}
 	
