@@ -8,7 +8,6 @@
             text-align: center;
         }
         #bg {
-
             background-image: url("images/image_de_fond.jpg");
             background-position: center;
             background-repeat: no-repeat;
@@ -34,19 +33,15 @@
             $("#categorie").change(function () {
                 toggleFields();
             });
-
         });
         // this toggles the visibility of other server
         function toggleFields() {
             if ($("#categorie").val() == "Ordi")
                 $("#num_serie").show();
-
             else
                 $("#num_serie").hide();
-
             if($("#categorie").val() == "else")
                 $("#quantite").show();
-
             else
                 $("#quantite").hide();
         }
@@ -54,7 +49,7 @@
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="index.php">L'outil Inventaire</a>
+        <a class="navbar-brand" href="#">L'outil Inventaire</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -74,7 +69,7 @@
                 </li>
                 <?php } ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="models/contact.php">Contact</a>
+                    <a class="nav-link" href="#">Contact</a>
                 </li>
             </ul>
         </div>
@@ -83,6 +78,7 @@
 <body class="panel-group" id="bg">
   <div class="container" style="margin-top: 3cm;">
   <h1 class="display-4" style="margin-bottom: 2cm; text-align: center;">Ajout d'un matériel</h1>
+  <a href="index.php?url=ajoutEm" class="btn btn-info">Ajout Emprunteur</a>
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">ajouter objet</div>
       <div class="card-body">
@@ -99,21 +95,24 @@
                             <option value="else">autres</option>
                             <option value="Ordi">ordinateur</option>
                 </select>
-
                     
                     
               </div>
                   <div class="col-5"  id="num_serie">
                     <label for="num_serie">numero de serie</label>
-                    <input type="text" class="form-control"  placeholder="numero de serie" name="num_serie" required>
+                    <input type="text" class="form-control"  placeholder="numero de serie" name="num_serie">
                   </div>
               </div>
               <div>
                   <div class="col-5"  id="quantite">
                     <label for="quantite">quantite</label>
-                    <input type="text" class="form-control"  placeholder="quantite" name="quantite" required>
+                    <input type="text" class="form-control"  placeholder="quantite" name="quantite" >
                   </div>
               </div>
+              <input type="hidden" name="size" value="1000000">
+                <div>
+                <input type="file" name="image">
+                </div>
               <div>
                   <div class="col-10">
                       <label for="code_barre">code barre</label>
@@ -127,7 +126,6 @@
       </div>
     </div>
   </div>
-
 </body>
 <footer class="footer">
     <div class="container">
@@ -135,13 +133,9 @@
             <div class="navbar-header">
                 <span class="navbar-brand">Université de Cergy Pontoise </span>
             </div>
-
             <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
         </div>
     </div>
 </footer>
-
 </html>
     
-    
-
