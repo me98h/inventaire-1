@@ -15,7 +15,7 @@
       }  
       else  
       {  
-           $output .= '<li>materiel non trouve</li>';  
+           $output .= '<li>emprunteur non trouve</li>';  
       }  
       $output .= '</ul>';  
       echo $output;  
