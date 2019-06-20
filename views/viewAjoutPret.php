@@ -79,7 +79,7 @@
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">L'outil Inventaire</a>
+        <a class="navbar-brand" href="index.php">L'outil Inventaire</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -93,11 +93,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?url=materiel">Materiel</a>
                 </li>
+                <?php if (isset($_SESSION['pwd'])) {?> 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?url=ajout">Admin</a>
+                    <a class="nav-link" href="views/viewAdmin.php">Admin</a>
                 </li>
+                <?php } ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="models/contact.php">Contact</a>
                 </li>
             </ul>
         </div>
@@ -124,6 +126,11 @@
                      </div>
                     <button type="button" id="createinput"> ajouter objet</button>
                         
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input id="email" placeholder="E-mail" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="email"  required/>
+                  <div id="emaillist"></div>
+              </div>
               <div class="col-5">
               <label for="date_debut">date debut</label>
                   <input type="date" class="form-control"  placeholder="date debut du pret" name="date_debut" required>
@@ -174,6 +181,26 @@
       $(document).on('click', '.country', function(){  
            $('#country').val($(this).text());  
            $('#countryList').fadeOut();  
+      });  
+      $('#email').keyup(function(){  
+           var query = $(this).val();  
+           if(query != '')  
+           {  
+                $.ajax({  
+                     url:"searchemail.php",  
+                     method:"POST",  
+                     data:{query:query},  
+                     success:function(data)  
+                     {  
+                          $('#emaillist').fadeIn();  
+                          $('#emaillist').html(data);  
+                     }  
+                });  
+           }  
+      });  
+      $(document).on('click', '.email', function(){  
+           $('#email').val($(this).text());  
+           $('#emaillist').fadeOut();  
       });  
       $('#submit1').click(function(){
           console.log($('#form1').serialize());

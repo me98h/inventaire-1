@@ -25,11 +25,6 @@
             table th{
             	font-size: 14px;
             }
-            .footer {
-                  margin-top: 100%;
-                  background-color: #f5f5f5;
-                  text-align: center;
-               }
             #bg { 
               background-image: url("images/image_de_fond.jpg");
               background-position: center;
@@ -40,7 +35,11 @@
         </style>
         <script type="text/javascript">
 			$(document).ready( function () {
-				$('#tab_mat').DataTable();
+				$('#tab_mat').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                    }
+                });
 			} );
             
             $(document).ready(function(){
@@ -53,7 +52,7 @@
     </head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">L'outil Inventaire</a>
+        <a class="navbar-brand" href="index.php">L'outil Inventaire</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -69,7 +68,7 @@
             </li>
                 <?php if (isset($_SESSION['pwd'])) {?> 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?url=ajout">Admin</a>
+                    <a class="nav-link" href="views/viewAdmin.php">Admin</a>
                 </li>
                 <?php } ?>
             <li class="nav-item">
@@ -111,13 +110,4 @@
             </table>
     </div>
 	</body>
-<footer class="footer">
-   <div class="container">
-        <div class="navbar-header">
-            <span class="navbar-brand">Université de Cergy Pontoise </span>
-        </div>
-
-        <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
-    </div>
-</footer>
 </html>

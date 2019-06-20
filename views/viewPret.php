@@ -5,8 +5,8 @@
         $pdf = new MyPDF();
         $pdf->AliasnbPages();
         $pdf->AddPage('L', 'A4', 0);
-        $pdf->headerTable();
-        $pdf->viewTable();
+        $pdf->headerTable1();
+        $pdf->viewTable1();
         $pdf->Output();
     }
 ?>
@@ -25,7 +25,7 @@
         		border:2px solid black;
         	}
         	.table_pret{
-        		width: 20cm;
+        		width: 30cm;
         		margin: auto;
         		height: 10cm;
         		margin-top: 3cm;
@@ -35,7 +35,7 @@
                 cursor: pointer;
             }
             .footer {
-				  margin-top: 5cm;
+				  margin-top: 30%;
 				  background-color: #f5f5f5;
 				  text-align: center;
 			}
@@ -49,7 +49,11 @@
         </style>
         <script type="text/javascript">
 			$(document).ready( function () {
-				$('#tab_pr').DataTable();
+				$('#tab_pr').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                    }
+                });
 			} );
             
             $(document).ready(function(){
@@ -62,7 +66,7 @@
     </head>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
 	  <div class="container">
-	    <a class="navbar-brand" href="#">L'outil Inventaire</a>
+	    <a class="navbar-brand" href="index.php">L'outil Inventaire</a>
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 	          <span class="navbar-toggler-icon"></span>
 	        </button>
@@ -78,12 +82,12 @@
 	        </li>
             <?php if (isset($_SESSION['pwd'])) {?> 
 	        <li class="nav-item">
-	          <a class="nav-link" href="index.php?url=ajout">Admin</a>
+	          <a class="nav-link" href="views/viewAdmin.php">Admin</a>
 	        </li>
             <?php } ?>
 	        <li class="nav-item">
-	          <a class="nav-link" href="models/contact.php">Contact</a>
-	        </li>
+              <a class="nav-link" href="models/contact.php">Contact</a>
+            </li>
 	      </ul>
 	    </div>
 	  </div>
@@ -100,6 +104,8 @@
                     <th>numero du pret</th>
                     <th>nom</th>
                     <th>date debut</th>
+                    <th>date prevu</th>
+                    <th>date fin</th>
                     <th>statut</th>
                 </tr>
             </thead>
@@ -107,8 +113,10 @@
             <?php foreach ($prets as $pret): ?>
                 <tr class=<?= $pret->couleur() ?> data-href=<?= $pret->getURL() ?>>
                     <td><?= $pret->no_pret() ?></td>
-                    <td><?= $pret->nom() ?></td>
+                    <td><img style="margin-right: 10pt;" src=<?= $pret->getIMG() ?> width='30' height='30' alt='grou'><?= $pret->nom() ?></td>
                     <td><?= $pret->date_debut() ?></td>
+                    <td><?= $pret->date_prevu() ?></td>
+                    <td><?= $pret->date_fin() ?></td>
                     <td><?= $pret->statut() ?></td>
                 </tr>
             <?php endforeach; ?>

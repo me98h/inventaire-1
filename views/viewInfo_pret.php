@@ -1,3 +1,15 @@
+<?php
+    require_once('fpdf/MyPDF.php');
+
+    if(isset($_POST['generate'])){
+        $pdf = new MyPDF('L');
+        $pdf->AliasnbPages();
+        $pdf->AddPage('L', 'A4', 0);
+        $pdf->headerTable2($nom);
+        $pdf->viewTable2($pret);
+        $pdf->Output();
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,7 +53,11 @@
         </style>
         <script type="text/javascript">
 			$(document).ready( function () {
-				$('#tab_mat').DataTable();
+				$('#tab_mat').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                    }
+                });
 			} );
             
             $(document).ready(function(){
@@ -54,7 +70,7 @@
     </head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">L'outil Inventaire</a>
+        <a class="navbar-brand" href="index.php">L'outil Inventaire</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -70,22 +86,25 @@
             </li>
                 <?php if (isset($_SESSION['pwd'])) {?> 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?url=ajout">Admin</a>
+                    <a class="nav-link" href="views/viewAdmin.php">Admin</a>
                 </li>
                 <?php } ?>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="models/contact.php">Contact</a>
+                </li>
           </ul>
         </div>
       </div>
     </nav>
     <body class="panel-group" id="bg">
         <h1 class="display-4" style="margin-top: 3cm; margin-bottom: 1cm; text-align: center;">Informations du prêt</h1>
-        <div style='margin-left: 5.3cm;' class='text-left'>
-            <p class='font-weight-bold'>Ce pret a été éffectué par <a href=<?= $link ?>><?= $nom ?></a> , veuillez cliquer sur le nom pour afficher les details de cet emprunteur  </p>
+        <div style='margin-left: 5cm;' class='text-left'>
+            <h2 class='font-weight-bold' style="text-decoration:underline black;"><a style="text-decoration: none; color: inherit;" href=<?= $link ?>><?= $nom ?></a></h2>
         </div>
-        <div class='table_pret'>
+        <form action="#" method="post" style="position: absolute; margin-left: 18cm;">
+              <button type="submit" class="btn btn-primary" name="generate">Génerer en PDF</button>
+        </form>
+        <div class='table_pret' style="margin-top: 2cm;">
             <table id='tab_mat' class='table table-hover' class='display'>
                 <thead>
                     <tr>
@@ -99,7 +118,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($information_pret as $info): ?>
-                        <tr class=<?= $info->getCouleur() ?>>
+                        <tr>
                             <td><?= $info->no_mat() ?></td>
                             <td><?= $info->nom() ?></td>
                             <td><?= $info->categorie() ?></td>
