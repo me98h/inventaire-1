@@ -33,9 +33,12 @@
 			$this->Ln();
 		}
 
-		function headerTable2($nom){
+		function headerTable2($nom, $prenom){
 			$this->SetFont('Arial', 'B', 14, true);
-			$this->Cell(276, 5, utf8_decode('Prêt efféctué par :'.$nom), 0, 0, 'C');
+			if($prenom != null)
+				$this->Cell(276, 5, utf8_decode($nom).' '.utf8_decode($prenom), 0, 0, 'C');
+			else
+				$this->Cell(276, 5, utf8_decode($nom), 0, 0, 'C');
 			$this->Ln(10);
 			$this->SetFont('Times', 'B', 12, true);
 			$this->Cell(10, 10, utf8_decode('N°'), 1, 0, 'C');
