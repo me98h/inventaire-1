@@ -49,6 +49,13 @@ abstract class Model
     	return $row['is_object_tab'];
 	}
 
+    public function getPrenom_emp($no_emp_pr){
+  		$result_prenom = self::$_bdd->query("SELECT * FROM utilisateurs WHERE no_emp_util='" . $no_emp_pr . "';");
+	    $row = $result_prenom->fetch();
+		
+		return $row['prenom'];	
+    }
+
 	public function getAllPret(){
 		$var = [];
 		

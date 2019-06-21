@@ -5,5 +5,10 @@ class Info_pretManager extends Model
 		$this->getBdd();
 		return $this->getAllInformation($_pret);
 	}
+
+	public function getPrenom($no_emp_pr){
+		$this->getBdd();
+		return $this->getPrenom_emp($no_emp_pr);
+	}
 }
 ?>
