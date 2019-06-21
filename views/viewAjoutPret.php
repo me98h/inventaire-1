@@ -143,17 +143,6 @@
     </div>
   </div>
 </body>
-<footer class="footer">
-    <div class="container">
-        <div class="container">
-            <div class="navbar-header">
-                <span class="navbar-brand">Université de Cergy Pontoise </span>
-            </div>
-
-            <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
-        </div>
-    </div>
-</footer>
 </html>
  <script>  
  $(document).ready(function(){  
