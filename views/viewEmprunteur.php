@@ -40,11 +40,6 @@
             table th{
             	font-size: 14px;
             }
-            .footer {
-              margin-top: 1%;
-              background-color: #f5f5f5;
-              text-align: center;
-            }
             #bg { 
   
               background-image: url("images/image_de_fond.jpg");
@@ -244,15 +239,4 @@
           <?php } ?>
         <?php } ?>
 	  </body>
-<footer class="footer">
-  <div class="container">
-   <div class="container">
-        <div class="navbar-header">
-            <span class="navbar-brand">Université de Cergy Pontoise </span>
-        </div>
-
-        <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
-    </div>
-  </div>
-</footer>
 </html>

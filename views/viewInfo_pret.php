@@ -5,7 +5,7 @@
         $pdf = new MyPDF('L');
         $pdf->AliasnbPages();
         $pdf->AddPage('L', 'A4', 0);
-        $pdf->headerTable2($nom);
+        $pdf->headerTable2($nom, $prenom);
         $pdf->viewTable2($pret);
         $pdf->Output();
     }
@@ -37,11 +37,6 @@
             }
             table th{
             	font-size: 14px;
-            }
-            .footer {
-                  margin-top: 5cm;
-                  background-color: #f5f5f5;
-                  text-align: center;
             }
             #bg { 
   
@@ -132,13 +127,4 @@
             </table>
         </div>
 	</body>
-<footer class="footer">
-  <div class="container">
-        <div class="navbar-footer">
-            <span class="navbar-brand">Université de Cergy Pontoise </span>
-        </div>
-
-        <p class="navbar-text navbar-right">L'outil Inventaire de UCP</p>
-    </div>
-</footer>
 </html>
