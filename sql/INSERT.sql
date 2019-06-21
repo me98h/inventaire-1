@@ -40,8 +40,8 @@
 	(10,'maitre de conférence');
 
 	INSERT INTO groupe (no_emp_grou, nb_max_etu, nom_groupe) VALUES
-	(11, 2, 'inventaires'),
-	(12, 2, 'souris');
+	(11, 2, 'Projet inventaires'),
+	(12, 2, 'Projet souris');
 
 	INSERT INTO appartenir (no_emp_grou_app, no_util_etu_app, est_chef) VALUES
 	(11, 1, 1),
