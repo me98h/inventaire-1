@@ -20,6 +20,7 @@
 		public function information_pret(){
 			$this->_info_pretManager = new Info_pretManager();
 			$information_pret = $this->_info_pretManager->getInformation($this->_pret);
+			$prenom = $this->_info_pretManager->getPrenom($this->_no_emp_pr);
 			$nom = $this->_nom;
 			$link = "'./index.php?url=emprunteur&no_emp=".$this->_no_emp_pr."&nom=".$this->_nom."'";
 			$pret = $this->_pret;
